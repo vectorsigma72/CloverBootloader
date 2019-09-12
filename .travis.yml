@@ -1,0 +1,24 @@
+os: osx
+osx_image: xcode11
+script: buildme travis
+
+branches:
+only:
+- travis-setup
+
+before_deploy:
+      # Set up git user name and tag this commit
+#      - git fetch upstream
+#      - git merge upstream/master
+      - git config --local user.name vectorsigma72
+      - export TRAVIS_TAG=${TRAVIS_TAG:-r$(cat vers.txt)}
+      - git tag $TRAVIS_TAG
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file: CloverPackage/sym/Clover_*.zip
+  file: CloverPackage/sym/CloverISO-*/*.iso
+  skip_cleanup: true
+  on:
+    tags: true
+  overwrite: true
