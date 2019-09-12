@@ -1,6 +1,6 @@
 os: osx
 osx_image: xcode11
-script: buildme travis
+script: - buildme travis
 
 branches:
 only:
